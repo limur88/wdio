@@ -30,11 +30,10 @@ export const config: Options.Testrunner = {
   // of the config file unless it's absolute.
   //
   specs: [
-     'src/**/*.spec.ts',
-    
-    
-     'src/register.spec.ts',
-    'src/18-1dynamicload.spec.ts',
+    // 'src/**/*.spec.ts',
+    //  'src/register.spec.ts',
+    // 'src/18-1dynamicload.spec.ts',
+    'src/ui/tests/19-1.spec.ts',
   ],
   // Patterns to exclude.
   exclude: [
@@ -65,6 +64,9 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: ['--disable-search-engine-choice-screen'],
+      },
     },
   ],
 
