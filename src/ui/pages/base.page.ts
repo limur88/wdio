@@ -23,11 +23,19 @@ export abstract class BasePage {
 
   async getText(locator: string, timeout = TIMEOUT_5_SEC) {
     const element = await this.waitForElement(locator, timeout);
-    await element.getText();
+    return await element.getText();
   }
 
   async selectDropdownValue(locator: string, value: string | number, timeout = TIMEOUT_5_SEC) {
     const element = await this.waitForElement(locator, timeout);
     await element.selectByVisibleText(value);
+  }
+
+  async openPage(url: string) {
+    await browser.url(url);
+  }
+
+  async deleteCookies(cookieNames: string[]) {
+    await browser.deleteCookies(cookieNames);
   }
 }
