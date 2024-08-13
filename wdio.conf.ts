@@ -33,7 +33,12 @@ export const config: Options.Testrunner = {
     // 'src/**/*.spec.ts',
     //  'src/register.spec.ts',
     // 'src/18-1dynamicload.spec.ts',
-    'src/ui/tests/19-1.spec.ts',
+    //'src/ui/tests/19-1.spec.ts',
+    // 'src/ui/tests/products.smoke.test.ts',
+    // 'src/ui/tests/simpleProductCheck.spec.ts',
+    // 'src/api/tests/products/smoke.test.ts',
+    // 'src/api/tests/products/smoke&signInClient.test.ts',
+    'src/api/tests/products/smokeAxiosSignIn.test.ts',
   ],
   // Patterns to exclude.
   exclude: [
@@ -65,7 +70,7 @@ export const config: Options.Testrunner = {
     {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--disable-search-engine-choice-screen'],
+        args: ['--disable-search-engine-choice-screen', '--headless'],
       },
     },
   ],
@@ -243,11 +248,7 @@ export const config: Options.Testrunner = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: async function (
-    test,
-    context,
-    { error, result, duration, passed, retries },
-  ) {
+  afterTest: async function (test, context, { error, result, duration, passed, retries }) {
     if (!passed) {
       await browser.takeScreenshot();
     }

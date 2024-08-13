@@ -2,6 +2,10 @@
   "name": "webdriverProject",
   "type": "module",
   "devDependencies": {
+    "@types/ajv": "^1.0.0",
+    "@types/axios": "^0.14.0",
+    "@types/chai": "^4.3.17",
+    "@types/lodash": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@wdio/allure-reporter": "^8.39.0",
@@ -27,9 +31,16 @@
     "prettier": "prettier --config .prettierrc src/**/*.ts --check",
     "prettier:fix": "prettier --write 'src/**/*.{js,ts,tsx,json,css,md}'"
   },
-  "husky":{
-    "hooks":{
+  "husky": {
+    "hooks": {
       "pre-commit": "npm run prettier && npm run lint"
     }
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "ajv": "^8.17.1",
+    "axios": "^1.7.3",
+    "chai": "^5.1.1",
+    "lodash": "^4.17.21"
   }
 }
