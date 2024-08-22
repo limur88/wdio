@@ -5,6 +5,7 @@
     "@types/ajv": "^1.0.0",
     "@types/axios": "^0.14.0",
     "@types/chai": "^4.3.17",
+    "@types/dotenv": "^8.2.0",
     "@types/lodash": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
@@ -41,6 +42,7 @@
     "ajv": "^8.17.1",
     "axios": "^1.7.3",
     "chai": "^5.1.1",
+    "dotenv": "^16.4.5",
     "lodash": "^4.17.21"
   }
 }

@@ -1,3 +1,4 @@
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../config/environment.js';
 import { generateNewProduct } from '../../data/products/generateProduct.js';
 import { IProduct, MANUFACTURERS } from '../../data/types/product.types.js';
 import { AddNewProductPage } from '../pages/products/addNewProduct.page.js';
@@ -14,8 +15,8 @@ describe('[UI] [Products] Smoke', () => {
 
   beforeEach(async () => {
     await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/#');
-    await $('#emailinput').setValue('aqacourse@gmail.com');
-    await $('input[type="password"]').setValue('password');
+    await $('#emailinput').setValue(ADMIN_USERNAME);
+    await $('input[type="password"]').setValue(ADMIN_PASSWORD);
     await $('.btn-primary').click();
     await $('.spinner-border').waitForDisplayed({ reverse: true });
     await $('(//a[contains(@class, "nav-link")])[3]').click();

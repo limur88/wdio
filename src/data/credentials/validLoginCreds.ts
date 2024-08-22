@@ -1,6 +1,8 @@
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../config/environment';
+
 export const loginCredentials = {
-  username: 'aqacourse@gmail.com',
-  password: 'password',
+  username: ADMIN_USERNAME,
+  password: ADMIN_PASSWORD,
 };
 
 export interface ICredentials {

@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import { generateNewProduct } from '../../../data/products/generateProduct.js';
 import { IProduct } from '../../../data/types/product.types.js';
-import { adminCredentials } from '../../../data/credentials/adminCreds.js';
-// import { ICredentials } from '../../../data/credentials/validLoginCreds.js';
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../../config/environment.js';
 
 describe('[API] [Products] Smoke', () => {
   const baseUrl = 'https://aqa-course-project.app/';
@@ -18,8 +17,8 @@ describe('[API] [Products] Smoke', () => {
   };
   beforeEach(async () => {
     const credentials = {
-      username: adminCredentials.username,
-      password: adminCredentials.password,
+      username: ADMIN_USERNAME,
+      password: ADMIN_PASSWORD,
     };
 
     const response = await fetch(baseUrl + endpoints.login, {

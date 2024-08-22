@@ -1,20 +1,20 @@
 import _ from 'lodash';
 import { generateNewProduct } from '../../../data/products/generateProduct.js';
-import { IProduct } from '../../../data/types/product.types.js';
-import { adminCredentials } from '../../../data/credentials/adminCreds.js';
+import { IProduct, IProductFromResponse, IProductResponse } from '../../../data/types/product.types.js';
 import { SignInAxiosClient } from '../../clients/signInAxiosClient.js';
 import { STATUS_CODES } from '../../../data/types/api.types.js';
 import { apiConfig } from '../../../config/apiConfig.js';
 import axios from 'axios';
-// import { ICredentials } from '../../../data/credentials/validLoginCreds.js';
+import { ADMIN_USERNAME, ADMIN_PASSWORD } from '../../../config/environment.js';
 
 describe('[API] [Products] Smoke', () => {
   let token = '';
   const credentials = {
-    username: adminCredentials.username,
-    password: adminCredentials.password,
+    username: ADMIN_USERNAME,
+    password: ADMIN_PASSWORD,
   };
 
+  let createdProduct: IProductResponse | null;
   let createdProduct: {
     Product: IProduct & { _id: string; createdOn: string };
     IsSuccess: boolean;
@@ -24,30 +24,11 @@ describe('[API] [Products] Smoke', () => {
   beforeEach(async () => {
     const logIn = new SignInAxiosClient(apiConfig.baseUrl, apiConfig.endpoints.Login);
     token = await logIn.login(credentials);
-
-    //     let auth = {
-    //         headers: {
-    //           Authorization: token,
-    //           'Content-Type': 'application/json',
-    //         },
-    // }
   });
 
-  // afterEach(async () => {
-  //   if (createdProduct) {
-  //     const id = createdProduct.Product._id;
-  //     const response = await axios.delete(apiConfig.baseUrl + apiConfig.endpoints.Products + id + '/', {
-  //       headers: {
-  //         Authorization: token,
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     expect(response.status).toBe(STATUS_CODES.DELETED);
-  //   } else {
-  //     console.log('Nothing to delete');
-  //     axios.get('https://anatoly-karpovich.github.io/aqa-course-project/');
-  //   }
-  // });
+  afterEach(async () => {
+    await axios.get('https://anatoly-karpovich.github.io/aqa-course-project/');
+  });
 
   it('Should create product', async () => {
     const productData = generateNewProduct();
@@ -60,10 +41,9 @@ describe('[API] [Products] Smoke', () => {
     expect(response.status).toBe(STATUS_CODES.CREATED);
     createdProduct = response.data;
     console.log(createdProduct);
-
-    const actualProduct = _.omit(createdProduct.Product, ['_id', 'createdOn']);
-    expect(createdProduct.ErrorMessage).toBe(null);
-    expect(createdProduct.IsSuccess).toBe(true);
+    const actualProduct = _.omit((createdProduct as IProductResponse).Product, ['_id', 'createdOn']);
+    expect((createdProduct as IProductResponse).ErrorMessage).toBe(null);
+    expect((createdProduct as IProductResponse).IsSuccess).toBe(true);
     expect(actualProduct).toMatchObject({ ...productData });
   });
 
@@ -78,13 +58,14 @@ describe('[API] [Products] Smoke', () => {
     expect(response.status).toBe(STATUS_CODES.CREATED);
     createdProduct = response.data;
 
-    const actualProduct = _.omit(createdProduct.Product, ['_id', 'createdOn']);
+    const actualProduct = _.omit((createdProduct as IProductResponse).Product, ['_id', 'createdOn']);
 
-    expect(createdProduct.ErrorMessage).toBe(null);
-    expect(createdProduct.IsSuccess).toBe(true);
+    expect((createdProduct as IProductResponse).ErrorMessage).toBe(null);
+    expect((createdProduct as IProductResponse).IsSuccess).toBe(true);
     expect(actualProduct).toMatchObject({ ...productData });
 
-    const id = createdProduct.Product._id;
+    const id = (createdProduct as IProductResponse).Product._id;
+
     const deleteProduct = await axios.delete(apiConfig.baseUrl + apiConfig.endpoints.Products + id + '/', {
       headers: {
         Authorization: token,
@@ -129,7 +110,8 @@ describe('[API] [Products] Smoke', () => {
     expect(deleteProduct.status).toBe(STATUS_CODES.DELETED);
   });
 
-  it.only('Should return list of products and update latest product', async () => {
+
+  it('Should return list of products and update latest product', async () => {
     const response = await axios.get(apiConfig.baseUrl + apiConfig.endpoints.Products, {
       headers: {
         Authorization: token,

@@ -1,4 +1,4 @@
-import { IUserCredentials } from '../../data/types/user.types.js';
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../config/environment.js';
 import { PortalPage } from './portal.page.js';
 
 export class LoginPage extends PortalPage {
@@ -8,9 +8,9 @@ export class LoginPage extends PortalPage {
   protected readonly 'Password field' = '#passwordinput';
   protected readonly 'Login Button' = '//button[@type="submit"]';
 
-  async fillCredentials(credentials: IUserCredentials) {
-    await $(this['Email Field']).setValue(credentials.username);
-    await $(this['Password field']).setValue(credentials.password);
+  async fillCredentials() {
+    await $(this['Email Field']).setValue(ADMIN_USERNAME);
+    await $(this['Password field']).setValue(ADMIN_PASSWORD);
     return this;
   }
 
@@ -19,4 +19,4 @@ export class LoginPage extends PortalPage {
     this.hiddenSpinner();
   }
 }
-export default new LoginPage();
+// export default new LoginPage();
