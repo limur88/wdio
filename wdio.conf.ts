@@ -1,4 +1,7 @@
 import type { Options } from '@wdio/types';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export const config: Options.Testrunner = {
   //
   // ====================
@@ -33,12 +36,12 @@ export const config: Options.Testrunner = {
     // 'src/**/*.spec.ts',
     //  'src/register.spec.ts',
     // 'src/18-1dynamicload.spec.ts',
-    //'src/ui/tests/19-1.spec.ts',
+    // 'src/ui/tests/19-1.spec.ts',
     // 'src/ui/tests/products.smoke.test.ts',
     // 'src/ui/tests/simpleProductCheck.spec.ts',
-    // 'src/api/tests/products/smoke.test.ts',
+    'src/api/tests/products/smoke.test.ts',
     // 'src/api/tests/products/smoke&signInClient.test.ts',
-    'src/api/tests/products/smokeAxiosSignIn.test.ts',
+    // 'src/api/tests/products/smokeAxiosSignIn.test.ts',
   ],
   // Patterns to exclude.
   exclude: [
@@ -70,7 +73,10 @@ export const config: Options.Testrunner = {
     {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--disable-search-engine-choice-screen', '--headless'],
+        args: [
+          '--disable-search-engine-choice-screen',
+          // '--headless'
+        ],
       },
     },
   ],

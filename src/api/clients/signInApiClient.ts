@@ -1,4 +1,4 @@
-import { ICredentials } from '../../data/credentials/validLoginCreds';
+import { ICredentials } from '../../data/credentials/validLoginCreds.js';
 
 export class SignInApiClient {
   baseUrl: string;

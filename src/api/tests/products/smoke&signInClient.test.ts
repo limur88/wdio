@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { generateNewProduct } from '../../../data/products/generateProduct.js';
 import { IProduct } from '../../../data/types/product.types.js';
-import { adminCredentials } from '../../../data/credentials/adminCreds.js';
 import { SignInApiClient } from '../../clients/signInApiClient.js';
+import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../../config/environment.js';
 // import { ICredentials } from '../../../data/credentials/validLoginCreds.js';
 
 describe('[API] [Products] Smoke', () => {
@@ -13,8 +13,8 @@ describe('[API] [Products] Smoke', () => {
   };
   let token = '';
   const credentials = {
-    username: adminCredentials.username,
-    password: adminCredentials.password,
+    username: ADMIN_USERNAME,
+    password: ADMIN_PASSWORD,
   };
 
   let createdProduct: {
