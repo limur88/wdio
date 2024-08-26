@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { AddNewProductPage } from '../../pages/products/addNewProduct.page.js';
 import { ProductsPage } from '../../pages/products/products.page.js';
 import { IProduct } from '../../../data/types/product.types.js';
-//import { logStep } from '../../../utils/report/decorator.js';
+import { logStep } from '../../../utils/report/decorator.js';
 
 export class ProductsListService {
   constructor(
@@ -10,7 +10,7 @@ export class ProductsListService {
     private addNewProductPage = new AddNewProductPage(),
   ) {}
 
-  //   @logStep('Open Add New Product page')
+  @logStep('Open Add New Product page')
   async openAddNewProductPage() {
     await this.productsPage.clickOnAddNewProduct();
     await this.productsPage.hiddenSpinner();
@@ -22,7 +22,7 @@ export class ProductsListService {
     return createdProductData;
   }
 
-  //   @logStep('Validate product in table')
+  @logStep('Validate product in table')
   async checkProductInTable(product: IProduct) {
     const actualProduct = await this.getExistingProductData(product.name);
     const expectedProduct = _.pick(product, ['name', 'price', 'manufacturer']);

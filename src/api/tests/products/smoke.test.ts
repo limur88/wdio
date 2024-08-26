@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { generateNewProduct } from '../../../data/products/generateProduct.js';
 import { IProduct } from '../../../data/types/product.types.js';
-import { ADMIN_PASSWORD, ADMIN_USERNAME } from '../../../config/environment.js';
+import { adminCredentials } from '../../../data/credentials/adminCreds.js';
 
 describe('[API] [Products] Smoke', () => {
   const baseUrl = 'https://aqa-course-project.app/';
@@ -16,13 +16,8 @@ describe('[API] [Products] Smoke', () => {
     ErrorMessage: string | null;
   };
   beforeEach(async () => {
-    const credentials = {
-      username: ADMIN_USERNAME,
-      password: ADMIN_PASSWORD,
-    };
-
     const response = await fetch(baseUrl + endpoints.login, {
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(adminCredentials),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
     });
@@ -62,9 +57,5 @@ describe('[API] [Products] Smoke', () => {
     expect(createdProduct.ErrorMessage).toBe(null);
     expect(createdProduct.IsSuccess).toBe(true);
     expect(actualProduct).toMatchObject({ ...productData });
-    //check created product object !
-    //check IsSuccess === true !
-    //check ErrorMessage === null !
-    //check JSON schema
   });
 });
