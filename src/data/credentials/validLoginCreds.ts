@@ -4,6 +4,7 @@ export const loginCredentials = {
   username: ADMIN_USERNAME,
   password: ADMIN_PASSWORD,
 };
+
 export interface ICredentials {
   username: string;
   password: string;

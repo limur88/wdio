@@ -6,7 +6,6 @@ import { STATUS_CODES } from '../../../data/types/api.types.js';
 import { apiConfig } from '../../../config/apiConfig.js';
 import axios from 'axios';
 import { ADMIN_USERNAME, ADMIN_PASSWORD } from '../../../config/environment.js';
-// import { ICredentials } from '../../../data/credentials/validLoginCreds.js';
 
 describe('[API] [Products] Smoke', () => {
   let token = '';
@@ -16,6 +15,11 @@ describe('[API] [Products] Smoke', () => {
   };
 
   let createdProduct: IProductResponse | null;
+  let createdProduct: {
+    Product: IProduct & { _id: string; createdOn: string };
+    IsSuccess: boolean;
+    ErrorMessage: string | null;
+  };
 
   beforeEach(async () => {
     const logIn = new SignInAxiosClient(apiConfig.baseUrl, apiConfig.endpoints.Login);
@@ -37,7 +41,6 @@ describe('[API] [Products] Smoke', () => {
     expect(response.status).toBe(STATUS_CODES.CREATED);
     createdProduct = response.data;
     console.log(createdProduct);
-
     const actualProduct = _.omit((createdProduct as IProductResponse).Product, ['_id', 'createdOn']);
     expect((createdProduct as IProductResponse).ErrorMessage).toBe(null);
     expect((createdProduct as IProductResponse).IsSuccess).toBe(true);
@@ -62,6 +65,7 @@ describe('[API] [Products] Smoke', () => {
     expect(actualProduct).toMatchObject({ ...productData });
 
     const id = (createdProduct as IProductResponse).Product._id;
+
     const deleteProduct = await axios.delete(apiConfig.baseUrl + apiConfig.endpoints.Products + id + '/', {
       headers: {
         Authorization: token,
@@ -105,6 +109,7 @@ describe('[API] [Products] Smoke', () => {
 
     expect(deleteProduct.status).toBe(STATUS_CODES.DELETED);
   });
+
 
   it('Should return list of products and update latest product', async () => {
     const response = await axios.get(apiConfig.baseUrl + apiConfig.endpoints.Products, {

@@ -19,9 +19,9 @@
 //   let createdProduct: IProductResponse;
 //   beforeEach(async () => {
 //     const credentials = {
-//   username: ADMIN_USERNAME,
-//   password: ADMIN_PASSWORD,
-// };
+//       username: adminCredentials.username,
+//       password: adminCredentials.password,
+//     };
 //     const response = await apiClient.send<ILoginResponse>({
 //       baseURL: apiConfig.baseUrl,
 //       url: apiConfig.endpoints.Login,

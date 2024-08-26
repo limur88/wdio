@@ -9,6 +9,7 @@ export class LogInService {
   async openSalesPortal() {
     await this.loginPage.openPage('https://anatoly-karpovich.github.io/aqa-course-project');
   }
+
   @logStep('Login')
   async login() {
     await this.loginPage.fillCredentials();
@@ -16,10 +17,12 @@ export class LogInService {
     await this.loginPage.hiddenSpinner();
     await HomePage.waitForOpened();
   }
+  
   @logStep('Login As Admin')
   async loginAsAdmin() {
     await this.login();
   }
+  
   @logStep('Sign out')
   async signOut() {
     await this.loginPage.deleteCookies(['Authorization']);
