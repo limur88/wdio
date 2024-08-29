@@ -1,26 +1,29 @@
-import { adminCredentials } from '../../data/credentials/adminCreds.js';
-import { IUserCredentials } from '../../data/types/user.types.js';
+import { logStep } from '../../utils/report/decorator.js';
 import HomePage from '../pages/home.page.js';
 import { LoginPage } from '../pages/login.page.js';
 
 export class LogInService {
   constructor(private loginPage = new LoginPage()) {}
 
+  @logStep('Open Sales portal')
   async openSalesPortal() {
     await this.loginPage.openPage('https://anatoly-karpovich.github.io/aqa-course-project');
   }
 
-  // async login(credentials: IUserCredentials) {
+  @logStep('Login')
   async login() {
     await this.loginPage.fillCredentials();
     await this.loginPage.clickOnLoginButton();
     await this.loginPage.hiddenSpinner();
     await HomePage.waitForOpened();
   }
-
+  
+  @logStep('Login As Admin')
   async loginAsAdmin() {
     await this.login();
-
+  }
+  
+  @logStep('Sign out')
   async signOut() {
     await this.loginPage.deleteCookies(['Authorization']);
   }

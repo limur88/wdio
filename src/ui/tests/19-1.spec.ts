@@ -6,11 +6,6 @@ describe('login new', () => {
   const link = 'https://anatoly-karpovich.github.io/aqa-course-project/#';
   const imageSelector = '//img[@class="img-fluid"]';
   const login = new LoginPage();
-  before(async () => {
-    await browser.maximizeWindow();
-    await browser.pause(2000);
-  });
-
   beforeEach(async () => {
     await browser.url(link);
     await $(imageSelector).isDisplayed();
